@@ -359,6 +359,196 @@
                 </div>
             </section>
 
+            <!-- TestContainers.NET Introduction -->
+            <section class="relative bg-gray-800/30 rounded-2xl p-8 m-6 backdrop-blur-md border border-gray-600/30 lab-led-border">
+                <div class="absolute top-4 right-4 w-3 h-3 bg-green-400 lab-hexagon lab-pulse"></div>
+                <h2 class="text-4xl text-cyan-400 mb-6 lab-glow-cyan">TestContainers.NET</h2>
+                <div class="fragment">
+                    <h3 class="text-2xl text-green-400 mb-4">🐳 What is TestContainers.NET?</h3>
+                    <p class="text-gray-200 mb-4">A .NET library that provides lightweight, throwaway instances of common databases, message brokers, and other services wrapped in Docker containers.</p>
+                </div>
+                <div class="fragment">
+                    <h3 class="text-2xl text-purple-400 mb-4">✨ Key Benefits</h3>
+                    <ul class="space-y-2 list-none">
+                        <li class="relative pl-8 py-2 bg-gray-700/30 rounded-lg border-l-4 border-cyan-400">
+                            <div class="absolute left-3 top-1/2 -translate-y-1/2 w-3 h-3 bg-cyan-400 lab-hexagon"></div>
+                            <strong class="text-green-400">Isolation:</strong> Each test gets a fresh environment
+                        </li>
+                        <li class="relative pl-8 py-2 bg-gray-700/30 rounded-lg border-l-4 border-cyan-400">
+                            <div class="absolute left-3 top-1/2 -translate-y-1/2 w-3 h-3 bg-cyan-400 lab-hexagon"></div>
+                            <strong class="text-green-400">Consistency:</strong> Same environment across all machines
+                        </li>
+                        <li class="relative pl-8 py-2 bg-gray-700/30 rounded-lg border-l-4 border-cyan-400">
+                            <div class="absolute left-3 top-1/2 -translate-y-1/2 w-3 h-3 bg-cyan-400 lab-hexagon"></div>
+                            <strong class="text-green-400">Realistic:</strong> Tests against real dependencies
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- TestContainers.NET Setup -->
+            <section class="relative bg-gray-800/30 rounded-2xl p-8 m-6 backdrop-blur-md border border-gray-600/30 lab-led-border">
+                <div class="absolute top-4 right-4 w-3 h-3 bg-blue-400 lab-hexagon lab-pulse"></div>
+                <h2 class="text-4xl text-cyan-400 mb-6 lab-glow-cyan">Setting Up TestContainers.NET</h2>
+                <div class="fragment">
+                    <h3 class="text-2xl text-green-400 mb-4">📦 1. Install NuGet Package</h3>
+                    <pre><code class="language-bash" data-trim>
+# Core package
+dotnet add package Testcontainers
+
+# Database-specific packages
+dotnet add package Testcontainers.PostgreSql
+dotnet add package Testcontainers.MsSql
+dotnet add package Testcontainers.Redis
+                    </code></pre>
+                </div>
+                <div class="fragment">
+                    <h3 class="text-2xl text-purple-400 mb-4">⚙️ 2. Basic Configuration</h3>
+                    <p class="text-gray-200">TestContainers requires Docker to be running on your machine. It automatically manages container lifecycle during tests.</p>
+                </div>
+            </section>
+
+            <!-- TestContainers.NET Code Example -->
+            <section class="relative bg-gray-800/30 rounded-2xl p-8 m-6 backdrop-blur-md border border-gray-600/30 lab-led-border">
+                <div class="absolute top-4 right-4 w-3 h-3 bg-purple-400 lab-hexagon lab-pulse"></div>
+                <h2 class="text-4xl text-cyan-400 mb-6 lab-glow-cyan">Code Example</h2>
+                <div class="fragment">
+                    <h3 class="text-2xl text-green-400 mb-4">🧪 PostgreSQL Integration Test</h3>
+                    <pre><code class="language-csharp" data-trim data-line-numbers="1-25">
+[Test]
+public async Task DatabaseIntegrationTest()
+{
+    // Arrange
+    await using var container = new PostgreSqlBuilder()
+        .WithImage("postgres:15-alpine")
+        .WithDatabase("testdb")
+        .WithUsername("testuser")
+        .WithPassword("testpass")
+        .WithPortBinding(5432, true)
+        .Build();
+
+    await container.StartAsync();
+
+    var connectionString = container.GetConnectionString();
+    
+    // Act
+    await using var connection = new NpgsqlConnection(connectionString);
+    await connection.OpenAsync();
+    
+    var command = new NpgsqlCommand("SELECT 1", connection);
+    var result = await command.ExecuteScalarAsync();
+
+    // Assert
+    Assert.That(result, Is.EqualTo(1));
+}
+                    </code></pre>
+                </div>
+            </section>
+
+            <!-- TestContainers.NET Advanced Example -->
+            <section class="relative bg-gray-800/30 rounded-2xl p-8 m-6 backdrop-blur-md border border-gray-600/30 lab-led-border">
+                <div class="absolute top-4 right-4 w-3 h-3 bg-green-400 lab-hexagon lab-pulse"></div>
+                <h2 class="text-4xl text-cyan-400 mb-6 lab-glow-cyan">Advanced Example</h2>
+                <div class="fragment">
+                    <h3 class="text-2xl text-purple-400 mb-4">🏗️ Test Fixture with Setup</h3>
+                    <pre><code class="language-csharp" data-trim data-line-numbers="1-30">
+public class DatabaseTestFixture : IAsyncLifetime
+{
+    private PostgreSqlContainer _container;
+    public string ConnectionString { get; private set; }
+
+    public async Task InitializeAsync()
+    {
+        _container = new PostgreSqlBuilder()
+            .WithImage("postgres:15-alpine")
+            .WithDatabase("testdb")
+            .WithUsername("testuser")
+            .WithPassword("testpass")
+            .WithWaitStrategy(Wait.ForUnixContainer()
+                .UntilPortIsAvailable(5432))
+            .Build();
+
+        await _container.StartAsync();
+        ConnectionString = _container.GetConnectionString();
+        
+        // Run database migrations
+        await RunMigrations();
+    }
+
+    public async Task DisposeAsync()
+    {
+        await _container.DisposeAsync();
+    }
+    
+    private async Task RunMigrations() { /* ... */ }
+}
+                    </code></pre>
+                </div>
+            </section>
+
+            <!-- TestContainers.NET Considerations -->
+            <section class="relative bg-gray-800/30 rounded-2xl p-8 m-6 backdrop-blur-md border border-gray-600/30 lab-led-border">
+                <div class="absolute top-4 right-4 w-3 h-3 bg-yellow-400 lab-hexagon lab-pulse"></div>
+                <h2 class="text-4xl text-cyan-400 mb-6 lab-glow-cyan">Key Considerations</h2>
+                <div class="fragment">
+                    <div class="bg-yellow-500/10 border-2 border-yellow-500 rounded-xl p-6 mb-6 relative backdrop-blur-sm">
+                        <div class="absolute top-2 left-4 w-3 h-3 bg-yellow-400 lab-hexagon"></div>
+                        <h3 class="text-yellow-400 text-xl font-semibold">⚡ Build Agent Resources</h3>
+                        <ul class="mt-4 space-y-2 text-gray-200">
+                            <li>• Ensure Docker is available on CI/CD agents</li>
+                            <li>• Allocate sufficient memory (containers + tests)</li>
+                            <li>• Consider parallel test execution limits</li>
+                            <li>• Monitor disk space for container images</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="fragment">
+                    <div class="bg-blue-500/10 border-2 border-blue-500 rounded-xl p-6 mb-6 relative backdrop-blur-sm">
+                        <div class="absolute top-2 left-4 w-3 h-3 bg-blue-400 lab-hexagon"></div>
+                        <h3 class="text-blue-400 text-xl font-semibold">🐳 Docker Environment</h3>
+                        <ul class="mt-4 space-y-2 text-gray-200">
+                            <li>• Use lightweight images (alpine variants)</li>
+                            <li>• Configure wait strategies for container readiness</li>
+                            <li>• Set appropriate timeouts for slow environments</li>
+                            <li>• Clean up containers after test completion</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TestContainers.NET Best Practices -->
+            <section class="relative bg-gray-800/30 rounded-2xl p-8 m-6 backdrop-blur-md border border-gray-600/30 lab-led-border">
+                <div class="absolute top-4 right-4 w-3 h-3 bg-green-400 lab-hexagon lab-pulse"></div>
+                <h2 class="text-4xl text-cyan-400 mb-6 lab-glow-cyan">TestContainers.NET Best Practices</h2>
+                <div class="fragment">
+                    <h3 class="text-2xl text-green-400 mb-4">💡 Optimization Tips</h3>
+                    <ul class="space-y-3 list-none">
+                        <li class="relative pl-8 py-3 bg-gray-700/30 rounded-lg border-l-4 border-cyan-400 transition-all duration-300 hover:bg-gray-700/50 hover:translate-x-2">
+                            <div class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 bg-cyan-400 lab-hexagon lab-pulse"></div>
+                            <strong class="text-green-400">Share Containers:</strong> Use test fixtures for expensive setups
+                        </li>
+                        <li class="relative pl-8 py-3 bg-gray-700/30 rounded-lg border-l-4 border-cyan-400 transition-all duration-300 hover:bg-gray-700/50 hover:translate-x-2">
+                            <div class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 bg-cyan-400 lab-hexagon lab-pulse"></div>
+                            <strong class="text-green-400">Fast Images:</strong> Prefer Alpine or minimal base images
+                        </li>
+                        <li class="relative pl-8 py-3 bg-gray-700/30 rounded-lg border-l-4 border-cyan-400 transition-all duration-300 hover:bg-gray-700/50 hover:translate-x-2">
+                            <div class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 bg-cyan-400 lab-hexagon lab-pulse"></div>
+                            <strong class="text-green-400">Wait Strategies:</strong> Implement proper readiness checks
+                        </li>
+                        <li class="relative pl-8 py-3 bg-gray-700/30 rounded-lg border-l-4 border-cyan-400 transition-all duration-300 hover:bg-gray-700/50 hover:translate-x-2">
+                            <div class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 bg-cyan-400 lab-hexagon lab-pulse"></div>
+                            <strong class="text-green-400">Cleanup:</strong> Always dispose containers properly
+                        </li>
+                    </ul>
+                </div>
+                <div class="fragment">
+                    <div class="bg-green-500/10 border-2 border-green-500 rounded-xl p-4 mt-6 relative backdrop-blur-sm">
+                        <div class="absolute top-2 left-4 w-3 h-3 bg-green-400 lab-hexagon lab-pulse"></div>
+                        <p class="text-green-400 text-center">✅ <em>Result: Isolated, reliable, and maintainable integration tests</em></p>
+                    </div>
+                </div>
+            </section>
+
             <!-- Best Practices Summary -->
             <section>
                 <h2>Best Practices</h2>
