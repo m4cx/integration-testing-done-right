@@ -96,8 +96,24 @@ jobs:
           # Create new orphan gh-pages branch
           git checkout --orphan gh-pages
           git rm -rf . || true
-          # Create a simple index for new gh-pages
-          cat > index.html << 'EOF'
+        fi
+        
+        # Check if main content exists at root - if not, deploy it first
+        if [ ! -f "index.html" ] || [ ! -d "lib" ]; then
+          echo "Main branch content not found in gh-pages. Deploying main content first..."
+          
+          # Get main branch content
+          git fetch origin main || git fetch origin master || echo "Could not fetch main/master branch"
+          
+          # Create temp directory for main branch build
+          MAIN_TEMP_DIR=$(mktemp -d)
+          
+          # Switch to main temporarily to build main content
+          CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+          git checkout origin/main 2>/dev/null || git checkout origin/master 2>/dev/null || {
+            echo "Could not checkout main branch. Creating placeholder content."
+            # Create a simple index as fallback
+            cat > "$MAIN_TEMP_DIR/index.html" << 'EOF'
         <!DOCTYPE html>
         <html>
         <head>
@@ -125,6 +141,29 @@ jobs:
         </body>
         </html>
         EOF
+          }
+          
+          # If we successfully checked out main, build it
+          if [ "$?" -eq 0 ]; then
+            npm ci 2>/dev/null || echo "Could not install dependencies for main branch"
+            npm run build 2>/dev/null || echo "Could not build main branch"
+            if [ -d "dist" ]; then
+              cp -r dist/* "$MAIN_TEMP_DIR/"
+            fi
+          fi
+          
+          # Go back to gh-pages
+          git checkout "$CURRENT_BRANCH"
+          
+          # Copy main content to root (but preserve existing PR directories)
+          find . -maxdepth 1 -name "pr-*" -type d > .preserve_dirs 2>/dev/null || touch .preserve_dirs
+          # Remove everything except PR directories and git
+          find . -maxdepth 1 ! -name "." ! -name ".git" ! -name "pr-*" ! -name ".preserve_dirs" -delete 2>/dev/null || true
+          # Copy main content
+          cp -r "$MAIN_TEMP_DIR"/* . 2>/dev/null || echo "Could not copy main content"
+          rm -f .preserve_dirs
+          
+          echo "Main content deployed to root"
         fi
         
         # Create PR directory and copy built files from temp location
