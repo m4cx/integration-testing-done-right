@@ -1,26 +1,164 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Integration Testing - Doing it the right way</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body { font-family: Arial, sans-serif; margin: 40px; line-height: 1.6; }
-        h1 { color: #333; }
-        .notice { padding: 15px; background: #f0f8ff; border-left: 4px solid #007cba; margin: 20px 0; }
-        .pr-list { margin: 20px 0; }
-        .pr-link { display: block; margin: 10px 0; padding: 10px; background: #f5f5f5; text-decoration: none; color: #333; border-radius: 5px; }
-        .pr-link:hover { background: #e5e5e5; }
-    </style>
+    
+    <title>Integration Testing - Doing it the right way</title>
+    
+    <!-- Reveal.js CSS -->
+    <link rel="stylesheet" href="lib/reveal.js/dist/reveal.css">
+    <link rel="stylesheet" href="lib/reveal.js/dist/theme/moon.css" id="theme">
+    
+    <!-- Theme override for modern look -->
+    <link rel="stylesheet" href="css/custom-theme.css">
+    
+    <!-- Syntax highlighting -->
+    <link rel="stylesheet" href="lib/reveal.js/plugin/highlight/monokai.css">
 </head>
+
 <body>
-    <h1>Integration Testing - Doing it the right way</h1>
-    <div class="notice">
-        <strong>Note:</strong> The main presentation will be available here once the main branch is deployed.
+    <div class="reveal">
+        <div class="slides">
+            <!-- Title slide -->
+            <section data-background-gradient="linear-gradient(to bottom, #283048, #859398)">
+                <h1>Integration Testing</h1>
+                <h2>Doing it the right way</h2>
+                <p>
+                    <small>A comprehensive guide to effective integration testing</small>
+                </p>
+            </section>
+
+            <!-- Welcome slide -->
+            <section>
+                <h2>Welcome</h2>
+                <p>This presentation will guide you through best practices for integration testing</p>
+                <div class="fragment">
+                    <p>🚀 Ready to learn?</p>
+                </div>
+            </section>
+
+            <!-- Story Introduction - Personal Journey -->
+            <section>
+                <h2>My Story</h2>
+                <h3>How I came to Integration Testing</h3>
+                <div class="fragment">
+                    <p>A personal journey through challenges and solutions</p>
+                </div>
+            </section>
+
+            <!-- Story Part 1: Central Infrastructure -->
+            <section>
+                <h3>The Starting Point</h3>
+                <div class="fragment">
+                    <h4>📊 Integration Testing against central infrastructure</h4>
+                    <p>Example: <strong>Elasticsearch</strong></p>
+                </div>
+                <div class="fragment">
+                    <ul>
+                        <li>Central test infrastructure for all teams</li>
+                        <li>Shared Elasticsearch instance</li>
+                        <li>All developers use the same environment</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Story Part 2: Automated Tests Success -->
+            <section>
+                <h3>The Success</h3>
+                <div class="fragment">
+                    <h4>✅ Automated Integration Tests</h4>
+                    <p>Complete functionality ensured</p>
+                </div>
+                <div class="fragment">
+                    <ul>
+                        <li>Tests against central test infrastructure</li>
+                        <li>High confidence in functionality</li>
+                        <li>Automated validation of all features</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Story Part 3: The Problems -->
+            <section>
+                <h3>The Problems</h3>
+                <div class="fragment">
+                    <h4>⚠️ Increasing load and latency</h4>
+                </div>
+                <div class="fragment">
+                    <ul>
+                        <li><strong>Local Development:</strong> Every developer tests against central infrastructure</li>
+                        <li><strong>Pull Requests:</strong> CI/CD pipeline increases load</li>
+                        <li><strong>UI Tests:</strong> Frontend tests add additional load</li>
+                    </ul>
+                </div>
+                <div class="fragment">
+                    <p>🚨 <em>Result: High latencies and unstable tests</em></p>
+                </div>
+            </section>
+
+            <!-- Story Part 4: The Solution Quest -->
+            <section>
+                <h3>The Quest for Solutions</h3>
+                <div class="fragment">
+                    <h4>🔍 How can the load be reduced?</h4>
+                </div>
+                <div class="fragment">
+                    <p>This question led to a comprehensive analysis of integration testing strategies...</p>
+                </div>
+                <div class="fragment">
+                    <p><strong>→ That's the reason for this presentation!</strong></p>
+                </div>
+            </section>
+
+            <!-- What we'll cover -->
+            <section>
+                <h2>What We'll Cover</h2>
+                <ul>
+                    <li class="fragment">Understanding Integration Testing</li>
+                    <li class="fragment">Best Practices & Strategies</li>
+                    <li class="fragment">Tools & Frameworks</li>
+                    <li class="fragment">Real-world Examples</li>
+                    <li class="fragment">Common Pitfalls to Avoid</li>
+                </ul>
+            </section>
+
+            <!-- Placeholder for content sections -->
+            <section>
+                <h2>Coming Soon...</h2>
+                <p>Content sections will be added here</p>
+                <div class="fragment">
+                    <p><em>This presentation framework is ready for content!</em></p>
+                </div>
+            </section>
+
+            <!-- Thank you slide -->
+            <section data-background-gradient="linear-gradient(to bottom, #859398, #283048)">
+                <h1>Thank You!</h1>
+                <p>Questions & Discussion</p>
+            </section>
+        </div>
     </div>
-    <h2>PR Previews</h2>
-    <div class="pr-list" id="pr-list">
-        <!-- PR links will be dynamically populated -->
-    </div>
+
+    <!-- Reveal.js JavaScript -->
+    <script src="lib/reveal.js/dist/reveal.js"></script>
+    <script src="lib/reveal.js/plugin/notes/notes.js"></script>
+    <script src="lib/reveal.js/plugin/markdown/markdown.js"></script>
+    <script src="lib/reveal.js/plugin/highlight/highlight.js"></script>
+
+    <script>
+        // More info about initialization & config:
+        // - https://revealjs.com/initialization/
+        // - https://revealjs.com/config/
+        Reveal.initialize({
+            hash: true,
+            transition: 'slide',
+            transitionSpeed: 'default',
+            backgroundTransition: 'fade',
+            
+            // Learn about plugins: https://revealjs.com/plugins/
+            plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+        });
+    </script>
 </body>
 </html>
