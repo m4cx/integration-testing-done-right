@@ -5,7 +5,9 @@
   "main": "index.html",
   "scripts": {
     "start": "npx serve -s .",
-    "dev": "npx serve -s . -p 3000"
+    "dev": "npx serve -s . -p 3000",
+    "build": "node build.js",
+    "build:serve": "npm run build && npx serve -s dist"
   },
   "keywords": [
     "integration-testing",
