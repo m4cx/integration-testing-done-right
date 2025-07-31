@@ -7,26 +7,28 @@
     <title>Integration Testing - Doing it the right way</title>
     
     <!-- Reveal.js CSS -->
-    <link rel="stylesheet" href="node_modules/reveal.js/dist/reveal.css">
-    <link rel="stylesheet" href="node_modules/reveal.js/dist/theme/moon.css" id="theme">
+    <link rel="stylesheet" href="lib/reveal.js/dist/reveal.css">
+    <link rel="stylesheet" href="lib/reveal.js/dist/theme/black.css" id="theme">
     
-    <!-- Theme override for modern look -->
-    <link rel="stylesheet" href="css/custom-theme.css">
+    <!-- Lab Theme - Modern Testing Lab Environment -->
+    <link rel="stylesheet" href="css/lab-theme.css">
     
     <!-- Syntax highlighting -->
-    <link rel="stylesheet" href="node_modules/reveal.js/plugin/highlight/monokai.css">
+    <link rel="stylesheet" href="lib/reveal.js/plugin/highlight/monokai.css">
 </head>
 
 <body>
     <div class="reveal">
         <div class="slides">
             <!-- Title slide -->
-            <section data-background-gradient="linear-gradient(to bottom, #283048, #859398)">
-                <h1>Integration Testing</h1>
-                <h2>Doing it the right way</h2>
-                <p>
-                    <small>A comprehensive guide to effective integration testing</small>
-                </p>
+            <section data-background-gradient="linear-gradient(to bottom, #283048, #859398)" class="lab-title-slide">
+                <div class="lab-highlight-box">
+                    <h1>Integration Testing</h1>
+                    <h2>Doing it the right way</h2>
+                    <p>
+                        <small>A comprehensive guide to effective integration testing</small>
+                    </p>
+                </div>
             </section>
 
             <!-- Welcome slide -->
@@ -83,7 +85,9 @@
             <section>
                 <h3>The Problems</h3>
                 <div class="fragment">
-                    <h4>⚠️ Increasing load and latency</h4>
+                    <div class="lab-highlight-box">
+                        <h4>⚠️ Increasing load and latency</h4>
+                    </div>
                 </div>
                 <div class="fragment">
                     <ul>
@@ -93,7 +97,9 @@
                     </ul>
                 </div>
                 <div class="fragment">
-                    <p>🚨 <em>Result: High latencies and unstable tests</em></p>
+                    <div class="lab-highlight-box">
+                        <p>🚨 <em>Result: High latencies and unstable tests</em></p>
+                    </div>
                 </div>
             </section>
 
@@ -339,18 +345,20 @@
             </section>
 
             <!-- Thank you slide -->
-            <section data-background-gradient="linear-gradient(to bottom, #859398, #283048)">
-                <h1>Thank You!</h1>
-                <p>Questions & Discussion</p>
+            <section data-background-gradient="linear-gradient(to bottom, #859398, #283048)" class="lab-title-slide">
+                <div class="lab-highlight-box">
+                    <h1>Thank You!</h1>
+                    <p>Questions & Discussion</p>
+                </div>
             </section>
         </div>
     </div>
 
     <!-- Reveal.js JavaScript -->
-    <script src="node_modules/reveal.js/dist/reveal.js"></script>
-    <script src="node_modules/reveal.js/plugin/notes/notes.js"></script>
-    <script src="node_modules/reveal.js/plugin/markdown/markdown.js"></script>
-    <script src="node_modules/reveal.js/plugin/highlight/highlight.js"></script>
+    <script src="lib/reveal.js/dist/reveal.js"></script>
+    <script src="lib/reveal.js/plugin/notes/notes.js"></script>
+    <script src="lib/reveal.js/plugin/markdown/markdown.js"></script>
+    <script src="lib/reveal.js/plugin/highlight/highlight.js"></script>
 
     <script>
         // More info about initialization & config:
