@@ -55,11 +55,27 @@ The built files will be in the `dist/` directory, ready for deployment to any st
 
 ## Deployment
 
-The presentation is automatically deployed to GitHub Pages when changes are pushed to the main branch. The GitHub Actions workflow:
+The presentation is automatically deployed to GitHub Pages with support for both main branch and PR previews:
 
+### Main Branch Deployment
+- **Trigger**: Push to main branch
+- **URL**: [https://m4cx.github.io/integration-testing-done-right/](https://m4cx.github.io/integration-testing-done-right/)
+- **Process**: Builds and deploys to the root path
+
+### PR Preview Deployment
+- **Trigger**: Pull request creation or updates
+- **URL**: `https://m4cx.github.io/integration-testing-done-right/pr-{PR_NUMBER}/`
+- **Process**: Builds and deploys to a subdirectory for each PR
+- **Features**:
+  - Automatic comment on PR with preview links
+  - Multiple PR previews can coexist
+  - Main branch version remains accessible
+  - No conflicts between different PR deployments
+
+The GitHub Actions workflow:
 1. Installs dependencies
 2. Builds the presentation using `npm run build`
-3. Deploys the built files to GitHub Pages
+3. Deploys to GitHub Pages using flexible path-based deployment
 
 ## Features
 
