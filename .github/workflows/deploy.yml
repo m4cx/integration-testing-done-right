@@ -47,9 +47,10 @@ jobs:
       if: github.event_name == 'pull_request'
       uses: peaceiris/actions-gh-pages@v4
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        personal_token: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}
         publish_dir: ./dist
         destination_dir: pr-${{ github.event.number }}
+        keep_files: true
         
     - name: Comment PR with preview URL
       if: github.event_name == 'pull_request'

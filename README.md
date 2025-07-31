@@ -57,6 +57,19 @@ The built files will be in the `dist/` directory, ready for deployment to any st
 
 The presentation is automatically deployed to GitHub Pages with two deployment modes:
 
+### Prerequisites for PR Previews
+
+For PR preview deployments to work, you need to set up a Personal Access Token (PAT):
+
+1. Go to GitHub Settings → Developer settings → Personal access tokens → Tokens (classic)
+2. Generate a new token with the following permissions:
+   - `repo` (Full control of private repositories)
+   - `workflow` (Update GitHub Action workflows)
+3. In your repository, go to Settings → Secrets and variables → Actions
+4. Add a new repository secret named `GH_PAT` with your token value
+
+This token allows the GitHub Actions workflow to push to the `gh-pages` branch for PR previews.
+
 ### Production Deployment (Main Branch)
 When changes are pushed to the main branch, the GitHub Actions workflow:
 1. Installs dependencies
