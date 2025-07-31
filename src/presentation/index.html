@@ -123,12 +123,218 @@
                 </ul>
             </section>
 
-            <!-- Placeholder for content sections -->
+            <!-- Testing Types Overview -->
             <section>
-                <h2>Coming Soon...</h2>
-                <p>Content sections will be added here</p>
+                <h2>Testing Types Overview</h2>
+                <p>Let's explore different types of testing and how they fit together</p>
                 <div class="fragment">
-                    <p><em>This presentation framework is ready for content!</em></p>
+                    <p>Understanding the landscape helps us make better testing decisions</p>
+                </div>
+            </section>
+
+            <!-- Unit Testing Definition -->
+            <section>
+                <h2>Unit Testing</h2>
+                <div class="fragment">
+                    <h3>🔬 Definition</h3>
+                    <p>Testing individual components or functions in isolation</p>
+                </div>
+                <div class="fragment">
+                    <h3>📝 Characteristics</h3>
+                    <ul>
+                        <li>Fast execution (milliseconds)</li>
+                        <li>No external dependencies</li>
+                        <li>High test coverage possible</li>
+                        <li>Easy to debug failures</li>
+                    </ul>
+                </div>
+                <div class="fragment">
+                    <h3>✅ When to Use</h3>
+                    <p>Business logic, algorithms, data transformations, utility functions</p>
+                </div>
+            </section>
+
+            <!-- Integration Testing Definition -->
+            <section>
+                <h2>Integration Testing</h2>
+                <div class="fragment">
+                    <h3>🔗 Definition</h3>
+                    <p>Testing the interaction between integrated components or services</p>
+                </div>
+                <div class="fragment">
+                    <h3>📝 Characteristics</h3>
+                    <ul>
+                        <li>Moderate execution time (seconds)</li>
+                        <li>Tests component boundaries</li>
+                        <li>Verifies data flow between modules</li>
+                        <li>Can use test doubles or real dependencies</li>
+                    </ul>
+                </div>
+                <div class="fragment">
+                    <h3>✅ When to Use</h3>
+                    <p>API integrations, database interactions, message queues, service boundaries</p>
+                </div>
+            </section>
+
+            <!-- System Testing Definition -->
+            <section>
+                <h2>System Testing</h2>
+                <div class="fragment">
+                    <h3>🏗️ Definition</h3>
+                    <p>Testing the complete integrated system against requirements</p>
+                </div>
+                <div class="fragment">
+                    <h3>📝 Characteristics</h3>
+                    <ul>
+                        <li>Tests entire application flow</li>
+                        <li>Production-like environment</li>
+                        <li>All components working together</li>
+                        <li>Performance and reliability focus</li>
+                    </ul>
+                </div>
+                <div class="fragment">
+                    <h3>✅ When to Use</h3>
+                    <p>Complete workflows, system requirements validation, performance testing</p>
+                </div>
+            </section>
+
+            <!-- End-to-End Testing Definition -->
+            <section>
+                <h2>End-to-End Testing</h2>
+                <div class="fragment">
+                    <h3>🌐 Definition</h3>
+                    <p>Testing complete user scenarios from start to finish</p>
+                </div>
+                <div class="fragment">
+                    <h3>📝 Characteristics</h3>
+                    <ul>
+                        <li>User perspective testing</li>
+                        <li>Real environment simulation</li>
+                        <li>Cross-system interactions</li>
+                        <li>Longest execution time</li>
+                    </ul>
+                </div>
+                <div class="fragment">
+                    <h3>✅ When to Use</h3>
+                    <p>Critical user journeys, business process validation, acceptance testing</p>
+                </div>
+            </section>
+
+            <!-- UI Testing Definition -->
+            <section>
+                <h2>UI Testing</h2>
+                <div class="fragment">
+                    <h3>🎨 Definition</h3>
+                    <p>Testing user interface behavior and visual elements</p>
+                </div>
+                <div class="fragment">
+                    <h3>📝 Characteristics</h3>
+                    <ul>
+                        <li>Browser/device specific</li>
+                        <li>Visual and interaction testing</li>
+                        <li>Can be brittle and slow</li>
+                        <li>Covers user experience</li>
+                    </ul>
+                </div>
+                <div class="fragment">
+                    <h3>✅ When to Use</h3>
+                    <p>User interface flows, accessibility, responsive design, visual regression</p>
+                </div>
+            </section>
+
+            <!-- Testing Pyramid -->
+            <section>
+                <h2>The Testing Pyramid</h2>
+                <div class="fragment">
+                    <h3>🏔️ Classic Approach</h3>
+                    <div style="text-align: center; margin: 20px 0;">
+                        <img src="diagrams/testing-pyramid.svg" alt="Testing Pyramid" style="max-width: 100%; height: auto; max-height: 300px;">
+                    </div>
+                </div>
+                <div class="fragment">
+                    <h3>💡 Key Principles</h3>
+                    <ul>
+                        <li><strong>Many Unit Tests:</strong> Fast, cheap, reliable foundation</li>
+                        <li><strong>Some Integration Tests:</strong> Verify component interactions</li>
+                        <li><strong>Few E2E Tests:</strong> Cover critical user journeys</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Testing Diamond -->
+            <section>
+                <h2>The Testing Diamond</h2>
+                <div class="fragment">
+                    <h3>💎 Modern Alternative</h3>
+                    <div style="text-align: center; margin: 20px 0;">
+                        <img src="diagrams/testing-diamond.svg" alt="Testing Diamond" style="max-width: 100%; height: auto; max-height: 350px;">
+                    </div>
+                </div>
+                <div class="fragment">
+                    <h3>🎯 Focus Areas</h3>
+                    <ul>
+                        <li><strong>Integration Tests:</strong> Primary focus for microservices</li>
+                        <li><strong>Contract Testing:</strong> Service boundary verification</li>
+                        <li><strong>Balanced Approach:</strong> Adapts to architecture</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Other Testing Approaches -->
+            <section>
+                <h2>Alternative Approaches</h2>
+                <div class="fragment">
+                    <h3>🔄 Testing Trophy</h3>
+                    <p>Emphasizes integration tests for web applications</p>
+                </div>
+                <div class="fragment">
+                    <h3>⚖️ Testing Honeycomb</h3>
+                    <p>Flexible approach based on context and risk</p>
+                </div>
+                <div class="fragment">
+                    <h3>🎯 Key Insight</h3>
+                    <p><em>Choose the approach that fits your architecture, team, and risk profile</em></p>
+                </div>
+            </section>
+
+            <!-- Integration Testing in Context -->
+            <section>
+                <h2>Integration Testing in Context</h2>
+                <div class="fragment">
+                    <h3>🎯 Where Integration Testing Shines</h3>
+                    <ul>
+                        <li><strong>Microservices:</strong> Service-to-service communication</li>
+                        <li><strong>APIs:</strong> Contract validation and data flow</li>
+                        <li><strong>Databases:</strong> Data persistence and retrieval</li>
+                        <li><strong>Third-party Services:</strong> External integrations</li>
+                    </ul>
+                </div>
+                <div class="fragment">
+                    <h3>⚡ Benefits</h3>
+                    <ul>
+                        <li>Catches interface mismatches</li>
+                        <li>Validates assumptions between components</li>
+                        <li>Faster feedback than E2E tests</li>
+                        <li>More realistic than unit tests</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Best Practices Summary -->
+            <section>
+                <h2>Best Practices</h2>
+                <div class="fragment">
+                    <h3>🎯 Strategic Guidelines</h3>
+                    <ul>
+                        <li><strong>Start with Unit Tests:</strong> Build a solid foundation</li>
+                        <li><strong>Focus on Integration:</strong> Test the boundaries that matter</li>
+                        <li><strong>Minimize E2E:</strong> Only for critical user journeys</li>
+                        <li><strong>Adapt to Context:</strong> Architecture drives testing strategy</li>
+                    </ul>
+                </div>
+                <div class="fragment">
+                    <h3>💡 Remember</h3>
+                    <p><em>The goal is confidence in your system, not perfect test coverage</em></p>
                 </div>
             </section>
 

@@ -1,0 +1,69 @@
+<svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="e2eGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff6b6b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ee5a52;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="integrationGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4ecdc4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#44a08d;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="unitGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#45b7d1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3498db;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="2" dy="4" stdDeviation="3" flood-color="rgba(0,0,0,0.3)"/>
+    </filter>
+  </defs>
+  
+  <!-- Unit Tests (Base) -->
+  <polygon points="50,250 350,250 300,180 100,180" 
+           fill="url(#unitGradient)" 
+           stroke="#2c3e50" 
+           stroke-width="2" 
+           filter="url(#shadow)"/>
+  <text x="200" y="220" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="18" font-weight="bold">Unit Tests</text>
+  <text x="200" y="240" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="12">Fast • Isolated • Many</text>
+  
+  <!-- Integration Tests (Middle) -->
+  <polygon points="100,180 300,180 250,120 150,120" 
+           fill="url(#integrationGradient)" 
+           stroke="#2c3e50" 
+           stroke-width="2" 
+           filter="url(#shadow)"/>
+  <text x="200" y="155" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="16" font-weight="bold">Integration Tests</text>
+  <text x="200" y="170" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="11">Moderate • Connected • Some</text>
+  
+  <!-- E2E Tests (Top) -->
+  <polygon points="150,120 250,120 220,70 180,70" 
+           fill="url(#e2eGradient)" 
+           stroke="#2c3e50" 
+           stroke-width="2" 
+           filter="url(#shadow)"/>
+  <text x="200" y="95" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="14" font-weight="bold">E2E Tests</text>
+  <text x="200" y="108" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="10">Slow • Complete • Few</text>
+  
+  <!-- Title -->
+  <text x="200" y="30" text-anchor="middle" fill="#2c3e50" font-family="Arial, sans-serif" font-size="20" font-weight="bold">Testing Pyramid</text>
+  
+  <!-- Cost/Speed arrows -->
+  <g>
+    <line x1="30" y1="80" x2="30" y2="220" stroke="#e74c3c" stroke-width="3" marker-end="url(#arrowhead)"/>
+    <text x="10" y="150" fill="#e74c3c" font-family="Arial, sans-serif" font-size="12" font-weight="bold" transform="rotate(-90 10 150)">Cost</text>
+  </g>
+  
+  <g>
+    <line x1="370" y1="220" x2="370" y2="80" stroke="#27ae60" stroke-width="3" marker-end="url(#arrowhead2)"/>
+    <text x="390" y="150" fill="#27ae60" font-family="Arial, sans-serif" font-size="12" font-weight="bold" transform="rotate(90 390 150)">Speed</text>
+  </g>
+  
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#e74c3c" />
+    </marker>
+    <marker id="arrowhead2" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#27ae60" />
+    </marker>
+  </defs>
+</svg>
