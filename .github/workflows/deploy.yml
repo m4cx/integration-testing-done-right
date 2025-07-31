@@ -178,10 +178,10 @@ jobs:
         git push origin gh-pages
         
         echo "✅ PR Preview deployed!"
-        echo "🔗 Preview URL: https://m4cx.github.io/integration-testing-done-right/pr-$PR_NUMBER/"
+        echo "🔗 Preview URL: https://m4cx.github.io/integration-testing-done-right/pr-$PR_NUMBER/index.html"
         
         # Add comment to PR with preview link
-        echo "PR_PREVIEW_URL=https://m4cx.github.io/integration-testing-done-right/pr-$PR_NUMBER/" >> $GITHUB_ENV
+        echo "PR_PREVIEW_URL=https://m4cx.github.io/integration-testing-done-right/pr-$PR_NUMBER/index.html" >> $GITHUB_ENV
     
     # Comment on PR with preview link
     - name: Comment PR
@@ -190,7 +190,7 @@ jobs:
       with:
         script: |
           const prNumber = context.payload.pull_request.number;
-          const previewUrl = `https://m4cx.github.io/integration-testing-done-right/pr-${prNumber}/`;
+          const previewUrl = `https://m4cx.github.io/integration-testing-done-right/pr-${prNumber}/index.html`;
           
           const body = `## 🚀 PR Preview Deployed
           
