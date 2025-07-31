@@ -7,12 +7,12 @@ using System.Net.Http.Json;
 
 namespace EcommerceShop.IntegrationTests;
 
-public class ShoppingCartControllerTests : IClassFixture<IntegrationTestWebAppFactory>
+public class ShoppingCartApiTests : IClassFixture<IntegrationTestWebAppFactory>
 {
     private readonly HttpClient _client;
     private readonly IntegrationTestWebAppFactory _factory;
 
-    public ShoppingCartControllerTests(IntegrationTestWebAppFactory factory)
+    public ShoppingCartApiTests(IntegrationTestWebAppFactory factory)
     {
         _factory = factory;
         _client = _factory.CreateClient();
