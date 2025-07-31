@@ -1,0 +1,278 @@
+/* Lab Theme using TailwindCSS utilities and CSS variables */
+
+/* CSS Variables for lab theme colors matching TailwindCSS naming */
+:root {
+  /* Lab color palette using TailwindCSS naming convention */
+  --color-lab-blue: #0ea5e9;
+  --color-lab-cyan: #06b6d4;
+  --color-lab-purple: #8b5cf6;
+  --color-lab-green: #10b981;
+  --color-lab-orange: #f59e0b;
+  --color-lab-red: #ef4444;
+  
+  /* Gray scale using TailwindCSS naming */
+  --color-gray-50: #f8fafc;
+  --color-gray-100: #f1f5f9;
+  --color-gray-200: #e2e8f0;
+  --color-gray-300: #cbd5e1;
+  --color-gray-400: #94a3b8;
+  --color-gray-500: #64748b;
+  --color-gray-600: #475569;
+  --color-gray-700: #334155;
+  --color-gray-800: #1e293b;
+  --color-gray-900: #0f172a;
+  --color-gray-950: #020617;
+  
+  /* Lab-specific spacing */
+  --spacing-lab-xs: 0.5rem;
+  --spacing-lab-sm: 0.75rem;
+  --spacing-lab-md: 1.5rem;
+  --spacing-lab-lg: 2.5rem;
+  --spacing-lab-xl: 4rem;
+  
+  /* Lab border radius */
+  --radius-lab: 0.75rem;
+  --radius-lab-lg: 1rem;
+  --radius-lab-xl: 1.5rem;
+  
+  /* LED glow shadows */
+  --shadow-led-sm: 0 0 10px;
+  --shadow-led-md: 0 0 15px;
+  --shadow-led-lg: 0 0 25px;
+  --shadow-led-xl: 0 0 35px;
+}
+
+/* Keyframes for animations */
+@keyframes ledGlow {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+
+@keyframes progressGlow {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes subtleFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-5px); }
+}
+
+/* Global reveal.js overrides using CSS variables */
+.reveal {
+  font-family: system-ui, -apple-system, sans-serif;
+  background: linear-gradient(135deg, var(--color-gray-900) 0%, var(--color-gray-800) 50%, var(--color-gray-900) 100%);
+  color: var(--color-gray-100);
+}
+
+/* Custom lab utility classes */
+.lab-hexagon {
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+
+.lab-led-border::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(45deg, 
+    var(--color-lab-blue), 
+    var(--color-lab-cyan), 
+    var(--color-lab-purple), 
+    var(--color-lab-green), 
+    var(--color-lab-blue));
+  background-size: 400% 400%;
+  border-radius: calc(var(--radius-lab-lg) + 2px);
+  z-index: -1;
+  animation: ledGlow 4s ease-in-out infinite;
+  opacity: 0.3;
+}
+
+.lab-pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.lab-float {
+  animation: subtleFloat 6s ease-in-out infinite;
+}
+
+.lab-progress-glow {
+  background: linear-gradient(90deg, 
+    var(--color-lab-blue), 
+    var(--color-lab-cyan), 
+    var(--color-lab-purple));
+  background-size: 200% 100%;
+  animation: progressGlow 3s ease-in-out infinite;
+}
+
+/* Hexagon bullet point for lists */
+.lab-hexagon-bullet::before {
+  content: '';
+  position: absolute;
+  left: var(--spacing-lab-sm);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1rem;
+  height: 1rem;
+  background: var(--color-lab-cyan);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* LED glow text effects */
+.lab-glow-cyan {
+  text-shadow: var(--shadow-led-md) rgba(6, 182, 212, 0.5);
+}
+
+.lab-glow-blue {
+  text-shadow: var(--shadow-led-md) rgba(14, 165, 233, 0.5);
+}
+
+.lab-glow-purple {
+  text-shadow: var(--shadow-led-md) rgba(139, 92, 246, 0.4);
+}
+
+/* Specific reveal.js overrides using variables */
+.reveal h1 {
+  font-size: 4rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--color-lab-blue), var(--color-lab-cyan));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: var(--shadow-led-lg) rgba(14, 165, 233, 0.5);
+  margin-bottom: var(--spacing-lab-lg);
+}
+
+.reveal h2 {
+  font-size: 2.5rem;
+  color: var(--color-lab-cyan);
+  text-shadow: var(--shadow-led-sm) rgba(6, 182, 212, 0.5);
+  margin-bottom: var(--spacing-lab-md);
+}
+
+.reveal h3 {
+  font-size: 1.75rem;
+  color: var(--color-lab-purple);
+  text-shadow: var(--shadow-led-sm) rgba(139, 92, 246, 0.4);
+  margin-bottom: var(--spacing-lab-md);
+}
+
+.reveal .progress {
+  height: 6px;
+  border-radius: 3px;
+}
+
+.reveal .progress span {
+  background: linear-gradient(90deg, 
+    var(--color-lab-blue), 
+    var(--color-lab-cyan), 
+    var(--color-lab-purple));
+  background-size: 200% 100%;
+  animation: progressGlow 3s ease-in-out infinite;
+}
+
+/* Apply lab background to all slides */
+.reveal .slides section {
+  animation: subtleFloat 6s ease-in-out infinite;
+}
+
+/* Reveal controls styling */
+.reveal .controls button {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(30, 41, 59, 0.8);
+  border: 2px solid var(--color-lab-cyan);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-led-md) rgba(6, 182, 212, 0.3);
+}
+
+.reveal .controls button:hover {
+  background: rgba(6, 182, 212, 0.2);
+  border-color: var(--color-lab-blue);
+  box-shadow: var(--shadow-led-lg) rgba(6, 182, 212, 0.5);
+  transform: scale(1.1);
+}
+
+/* Slide numbering */
+.reveal .slide-number {
+  font-family: 'Consolas', 'Monaco', 'Lucida Console', monospace;
+  font-weight: 600;
+  background: rgba(30, 41, 59, 0.9);
+  color: var(--color-lab-cyan);
+  padding: 0.5rem 1.2rem;
+  border-radius: 25px;
+  border: 1px solid var(--color-lab-cyan);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-led-md) rgba(6, 182, 212, 0.3);
+}
+
+/* Enhanced code styling */
+.reveal pre {
+  font-family: 'Consolas', 'Monaco', 'Lucida Console', monospace;
+  background: var(--color-gray-900);
+  border: 1px solid var(--color-gray-700);
+  border-radius: var(--radius-lab);
+  padding: var(--spacing-lab-md);
+  margin: var(--spacing-lab-md) 0;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  position: relative;
+}
+
+.reveal pre::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-lab-blue), var(--color-lab-cyan));
+  border-radius: var(--radius-lab) var(--radius-lab) 0 0;
+}
+
+.reveal code {
+  font-family: 'Consolas', 'Monaco', 'Lucida Console', monospace;
+  background: rgba(6, 182, 212, 0.15);
+  color: var(--color-lab-cyan);
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  font-size: 0.9em;
+}
+
+/* Enhanced strong text styling */
+.reveal strong {
+  color: var(--color-lab-green);
+  font-weight: 600;
+  text-shadow: var(--shadow-led-sm) rgba(16, 185, 129, 0.3);
+}
+
+/* Fragment enhancements */
+.reveal .fragment.highlight-current-blue.current-fragment {
+  color: var(--color-lab-cyan);
+  text-shadow: var(--shadow-led-md) rgba(6, 182, 212, 0.6);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .reveal h1 {
+    font-size: 2.5rem;
+  }
+  
+  .reveal h2 {
+    font-size: 2rem;
+  }
+  
+  .reveal .slides section {
+    padding: var(--spacing-lab-md);
+    margin: var(--spacing-lab-sm);
+  }
+}
