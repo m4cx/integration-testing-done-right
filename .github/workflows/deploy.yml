@@ -13,6 +13,11 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4
+      with:
+        # Need full history for gh-pages operations
+        fetch-depth: 0
+        # Need token for push operations
+        token: ${{ secrets.GITHUB_TOKEN }}
       
     - name: Setup Node.js
       uses: actions/setup-node@v4
@@ -26,29 +31,165 @@ jobs:
     - name: Build presentation
       run: npm run build
       
-    - name: Setup Pages
+    # Deploy main branch to root - using gh-pages branch approach for consistency
+    - name: Deploy Main Branch
       if: github.ref == 'refs/heads/main'
-      uses: actions/configure-pages@v4
-      
-    - name: Upload artifact
-      if: github.ref == 'refs/heads/main'
-      uses: actions/upload-pages-artifact@v3
-      with:
-        path: './dist'
+      run: |
+        # Configure git
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
         
-    - name: Deploy to GitHub Pages
-      if: github.ref == 'refs/heads/main'
-      id: deployment
-      uses: actions/deploy-pages@v4
+        # Check if gh-pages branch exists
+        git fetch origin gh-pages || echo "gh-pages branch doesn't exist yet"
+        
+        if git show-ref --verify --quiet refs/remotes/origin/gh-pages; then
+          git checkout gh-pages
+        else
+          # Create new orphan gh-pages branch
+          git checkout --orphan gh-pages
+          git rm -rf . || true
+        fi
+        
+        # Copy built files to root (excluding PR directories)
+        find . -maxdepth 1 -name "pr-*" -type d > .preserve_dirs 2>/dev/null || touch .preserve_dirs
+        find . -maxdepth 1 ! -name "." ! -name ".git" ! -name "pr-*" -delete 2>/dev/null || true
+        cp -r ${{ github.workspace }}/dist/* .
+        
+        # The main presentation is now at the root - no need for redirect
+        # Built files from dist/ already include the main index.html
+        
+        # Add and commit changes
+        git add .
+        git commit -m "Deploy main branch presentation" || echo "No changes to commit"
+        git push origin gh-pages
+        
+        echo "Main deployment completed"
+      
+    # Deploy PR preview to subdirectory  
+    - name: Deploy PR Preview
+      if: github.event_name == 'pull_request'
+      run: |
+        # Configure git
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+        
+        PR_NUMBER=${{ github.event.number }}
+        echo "Deploying PR #$PR_NUMBER preview"
+        
+        # Fetch gh-pages branch
+        git fetch origin gh-pages || echo "gh-pages branch doesn't exist yet"
+        
+        if git show-ref --verify --quiet refs/remotes/origin/gh-pages; then
+          git checkout gh-pages
+        else
+          # Create new orphan gh-pages branch
+          git checkout --orphan gh-pages
+          git rm -rf . || true
+          # Create a simple index for new gh-pages
+          cat > index.html << 'EOF'
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Integration Testing - Doing it the right way</title>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <style>
+                body { font-family: Arial, sans-serif; margin: 40px; line-height: 1.6; }
+                h1 { color: #333; }
+                .notice { padding: 15px; background: #f0f8ff; border-left: 4px solid #007cba; margin: 20px 0; }
+                .pr-list { margin: 20px 0; }
+                .pr-link { display: block; margin: 10px 0; padding: 10px; background: #f5f5f5; text-decoration: none; color: #333; border-radius: 5px; }
+                .pr-link:hover { background: #e5e5e5; }
+            </style>
+        </head>
+        <body>
+            <h1>Integration Testing - Doing it the right way</h1>
+            <div class="notice">
+                <strong>Note:</strong> The main presentation will be available here once the main branch is deployed.
+            </div>
+            <h2>PR Previews</h2>
+            <div class="pr-list" id="pr-list">
+                <!-- PR links will be dynamically populated -->
+            </div>
+        </body>
+        </html>
+        EOF
+        fi
+        
+        # Create PR directory and copy built files
+        mkdir -p pr-$PR_NUMBER
+        cp -r ${{ github.workspace }}/dist/* pr-$PR_NUMBER/
+        
+        # Add and commit changes
+        git add .
+        git commit -m "Deploy PR #$PR_NUMBER preview" || echo "No changes to commit"
+        git push origin gh-pages
+        
+        echo "✅ PR Preview deployed!"
+        echo "🔗 Preview URL: https://m4cx.github.io/integration-testing-done-right/pr-$PR_NUMBER/"
+        
+        # Add comment to PR with preview link
+        echo "PR_PREVIEW_URL=https://m4cx.github.io/integration-testing-done-right/pr-$PR_NUMBER/" >> $GITHUB_ENV
+    
+    # Comment on PR with preview link
+    - name: Comment PR
+      if: github.event_name == 'pull_request'
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const prNumber = context.payload.pull_request.number;
+          const previewUrl = `https://m4cx.github.io/integration-testing-done-right/pr-${prNumber}/`;
+          
+          const body = `## 🚀 PR Preview Deployed
+          
+          Your pull request has been deployed for preview:
+          
+          **🔗 [View PR Preview](${previewUrl})**
+          
+          This preview will be updated automatically when you push new commits to this PR.
+          
+          ---
+          *Preview powered by GitHub Pages*`;
+          
+          // Check if we already commented
+          const comments = await github.rest.issues.listComments({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: prNumber,
+          });
+          
+          const existingComment = comments.data.find(comment => 
+            comment.user.login === 'github-actions[bot]' && 
+            comment.body.includes('🚀 PR Preview Deployed')
+          );
+          
+          if (existingComment) {
+            // Update existing comment
+            await github.rest.issues.updateComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              comment_id: existingComment.id,
+              body: body
+            });
+          } else {
+            // Create new comment
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNumber,
+              body: body
+            });
+          }
 
-# Grant GITHUB_TOKEN the permissions required to make a Pages deployment
+# Grant GITHUB_TOKEN the permissions required to make a Pages deployment and manage gh-pages branch
 permissions:
-  contents: read
-  pages: write
+  contents: write
+  pages: write  
   id-token: write
+  pull-requests: write
 
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
 concurrency:
-  group: "pages"
+  group: "pages-${{ github.ref }}"
   cancel-in-progress: false

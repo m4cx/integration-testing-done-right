@@ -1,0 +1,49 @@
+name: Cleanup PR Preview
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        token: ${{ secrets.GITHUB_TOKEN }}
+      
+    - name: Cleanup PR Preview
+      run: |
+        # Configure git
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+        
+        PR_NUMBER=${{ github.event.number }}
+        echo "Cleaning up PR #$PR_NUMBER preview"
+        
+        # Fetch gh-pages branch
+        git fetch origin gh-pages || exit 0
+        
+        if git show-ref --verify --quiet refs/remotes/origin/gh-pages; then
+          git checkout gh-pages
+          
+          # Remove PR directory if it exists
+          if [ -d "pr-$PR_NUMBER" ]; then
+            rm -rf "pr-$PR_NUMBER"
+            git add .
+            git commit -m "Remove PR #$PR_NUMBER preview after closure" || echo "No changes to commit"
+            git push origin gh-pages
+            echo "✅ PR #$PR_NUMBER preview cleaned up"
+          else
+            echo "No preview directory found for PR #$PR_NUMBER"
+          fi
+        else
+          echo "No gh-pages branch found"
+        fi
+
+# Grant GITHUB_TOKEN the permissions required to manage gh-pages branch
+permissions:
+  contents: write

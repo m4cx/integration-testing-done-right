@@ -6,6 +6,13 @@ A presentation about effective integration testing practices built with reveal.j
 
 The presentation is automatically deployed to GitHub Pages: [View Live](https://m4cx.github.io/integration-testing-done-right/)
 
+### PR Previews
+
+Pull request previews are automatically deployed when you open a PR. Each PR gets its own preview URL at:
+`https://m4cx.github.io/integration-testing-done-right/pr-{number}/`
+
+When you open a pull request, the GitHub Actions bot will comment with a direct link to your PR preview.
+
 ## Setup
 
 1. Install dependencies:
@@ -48,6 +55,17 @@ The presentation is automatically deployed to GitHub Pages when changes are push
 1. Installs dependencies
 2. Builds the presentation using `npm run build`
 3. Deploys the built files to GitHub Pages
+
+### PR Previews
+
+Pull requests also trigger automatic deployments for preview purposes:
+
+1. Each PR gets deployed to a subdirectory: `/pr-{number}/`
+2. The main branch version remains at the root URL
+3. PR previews are automatically updated when new commits are pushed
+4. A comment with the preview link is added to each PR
+
+This allows reviewers to see changes without cloning the repository locally.
 
 ## Features
 
