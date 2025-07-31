@@ -6,12 +6,26 @@ A presentation about effective integration testing practices built with reveal.j
 
 The presentation is automatically deployed to GitHub Pages: [View Live](https://m4cx.github.io/integration-testing-done-right/)
 
+
 ### PR Previews
 
 Pull request previews are automatically deployed when you open a PR. Each PR gets its own preview URL at:
 `https://m4cx.github.io/integration-testing-done-right/pr-{number}/`
 
 When you open a pull request, the GitHub Actions bot will comment with a direct link to your PR preview.
+
+=======
+## Project Structure
+
+```
+├── src/presentation/           # Presentation source files
+│   ├── index.html             # Main presentation file
+│   └── css/                   # Custom styles and themes
+├── examples/                  # Integration testing examples (for future development)
+├── build.js                   # Build script for deployment
+├── dist/                      # Built presentation (generated)
+└── package.json              # Project configuration
+```
 
 ## Setup
 
@@ -86,7 +100,7 @@ This allows reviewers to see changes without cloning the repository locally.
 
 ## Customization
 
-The presentation uses a custom theme located in `css/custom-theme.css`. You can modify colors, fonts, and styling by editing this file.
+The presentation uses a custom theme located in `src/presentation/css/custom-theme.css`. You can modify colors, fonts, and styling by editing this file.
 
 ## Built with
 

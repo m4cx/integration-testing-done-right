@@ -44,8 +44,8 @@ if (fs.existsSync(distDir)) {
 ensureDir(distDir);
 
 // Copy main files
-copyFile('./index.html', './dist/index.html');
-copyDir('./css', './dist/css');
+copyFile('./src/presentation/index.html', './dist/index.html');
+copyDir('./src/presentation/css', './dist/css');
 
 // Copy reveal.js files
 const revealSrc = './node_modules/reveal.js';
