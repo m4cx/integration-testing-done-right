@@ -20,6 +20,7 @@
     "reveal.js": "^5.2.1"
   },
   "devDependencies": {
+    "@tailwindcss/cli": "^4.0.0",
     "serve": "^14.2.4",
     "tailwindcss": "^4.1.11"
   }

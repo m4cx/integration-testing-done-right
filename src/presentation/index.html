@@ -10,8 +10,11 @@
     <link rel="stylesheet" href="lib/reveal.js/dist/reveal.css">
     <link rel="stylesheet" href="lib/reveal.js/dist/theme/black.css" id="theme">
     
-    <!-- Lab Theme - Modern Testing Lab Environment -->
-    <link rel="stylesheet" href="css/lab-theme.css">
+    <!-- TailwindCSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lab Theme using TailwindCSS and CSS variables -->
+    <link rel="stylesheet" href="css/lab-tailwind-theme.css">
     
     <!-- Syntax highlighting -->
     <link rel="stylesheet" href="lib/reveal.js/plugin/highlight/monokai.css">
@@ -21,22 +24,24 @@
     <div class="reveal">
         <div class="slides">
             <!-- Title slide -->
-            <section data-background-gradient="linear-gradient(to bottom, #283048, #859398)" class="lab-title-slide">
-                <div class="lab-highlight-box">
-                    <h1>Integration Testing</h1>
-                    <h2>Doing it the right way</h2>
-                    <p>
+            <section data-background-gradient="linear-gradient(to bottom, #283048, #859398)" class="relative">
+                <div class="bg-blue-500/10 border-2 border-blue-500 rounded-xl p-6 m-4 relative backdrop-blur-sm lab-led-border">
+                    <div class="absolute top-2 right-4 w-4 h-4 bg-cyan-400 lab-hexagon lab-pulse"></div>
+                    <h1 class="text-6xl font-black mb-8 lab-glow-cyan">Integration Testing</h1>
+                    <h2 class="text-3xl text-cyan-400 mb-6 lab-glow-cyan">Doing it the right way</h2>
+                    <p class="text-gray-300">
                         <small>A comprehensive guide to effective integration testing</small>
                     </p>
                 </div>
             </section>
 
             <!-- Welcome slide -->
-            <section>
-                <h2>Welcome</h2>
-                <p>This presentation will guide you through best practices for integration testing</p>
+            <section class="relative bg-gray-800/30 rounded-2xl p-8 m-6 backdrop-blur-md border border-gray-600/30 lab-led-border">
+                <div class="absolute top-4 right-4 w-3 h-3 bg-green-400 lab-hexagon lab-pulse"></div>
+                <h2 class="text-4xl text-cyan-400 mb-6 lab-glow-cyan">Welcome</h2>
+                <p class="text-gray-200 mb-4">This presentation will guide you through best practices for integration testing</p>
                 <div class="fragment">
-                    <p>🚀 Ready to learn?</p>
+                    <p class="text-2xl text-center">🚀 Ready to learn?</p>
                 </div>
             </section>
 
@@ -82,23 +87,35 @@
             </section>
 
             <!-- Story Part 3: The Problems -->
-            <section>
-                <h3>The Problems</h3>
+            <section class="relative bg-gray-800/30 rounded-2xl p-8 m-6 backdrop-blur-md border border-gray-600/30 lab-led-border">
+                <div class="absolute top-4 right-4 w-3 h-3 bg-purple-400 lab-hexagon lab-pulse"></div>
+                <h3 class="text-3xl text-purple-400 mb-6 lab-glow-purple">The Problems</h3>
                 <div class="fragment">
-                    <div class="lab-highlight-box">
-                        <h4>⚠️ Increasing load and latency</h4>
+                    <div class="bg-yellow-500/10 border-2 border-yellow-500 rounded-xl p-6 mb-6 relative backdrop-blur-sm">
+                        <div class="absolute top-2 left-4 w-3 h-3 bg-yellow-400 lab-hexagon"></div>
+                        <h4 class="text-yellow-400 text-xl font-semibold">⚠️ Increasing load and latency</h4>
                     </div>
                 </div>
                 <div class="fragment">
-                    <ul>
-                        <li><strong>Local Development:</strong> Every developer tests against central infrastructure</li>
-                        <li><strong>Pull Requests:</strong> CI/CD pipeline increases load</li>
-                        <li><strong>UI Tests:</strong> Frontend tests add additional load</li>
+                    <ul class="space-y-4 list-none">
+                        <li class="relative pl-8 py-3 bg-gray-700/30 rounded-lg border-l-4 border-cyan-400 transition-all duration-300 hover:bg-gray-700/50 hover:translate-x-2">
+                            <div class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 bg-cyan-400 lab-hexagon lab-pulse"></div>
+                            <strong class="text-green-400">Local Development:</strong> Every developer tests against central infrastructure
+                        </li>
+                        <li class="relative pl-8 py-3 bg-gray-700/30 rounded-lg border-l-4 border-cyan-400 transition-all duration-300 hover:bg-gray-700/50 hover:translate-x-2">
+                            <div class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 bg-cyan-400 lab-hexagon lab-pulse"></div>
+                            <strong class="text-green-400">Pull Requests:</strong> CI/CD pipeline increases load
+                        </li>
+                        <li class="relative pl-8 py-3 bg-gray-700/30 rounded-lg border-l-4 border-cyan-400 transition-all duration-300 hover:bg-gray-700/50 hover:translate-x-2">
+                            <div class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 bg-cyan-400 lab-hexagon lab-pulse"></div>
+                            <strong class="text-green-400">UI Tests:</strong> Frontend tests add additional load
+                        </li>
                     </ul>
                 </div>
                 <div class="fragment">
-                    <div class="lab-highlight-box">
-                        <p>🚨 <em>Result: High latencies and unstable tests</em></p>
+                    <div class="bg-red-500/10 border-2 border-red-500 rounded-xl p-4 mt-6 relative backdrop-blur-sm">
+                        <div class="absolute top-2 left-4 w-3 h-3 bg-red-400 lab-hexagon lab-pulse"></div>
+                        <p class="text-red-400 text-center">🚨 <em>Result: High latencies and unstable tests</em></p>
                     </div>
                 </div>
             </section>
@@ -118,14 +135,30 @@
             </section>
 
             <!-- What we'll cover -->
-            <section>
-                <h2>What We'll Cover</h2>
-                <ul>
-                    <li class="fragment">Understanding Integration Testing</li>
-                    <li class="fragment">Best Practices & Strategies</li>
-                    <li class="fragment">Tools & Frameworks</li>
-                    <li class="fragment">Real-world Examples</li>
-                    <li class="fragment">Common Pitfalls to Avoid</li>
+            <section class="relative bg-gray-800/30 rounded-2xl p-8 m-6 backdrop-blur-md border border-gray-600/30 lab-led-border">
+                <div class="absolute top-4 right-4 w-3 h-3 bg-blue-400 lab-hexagon lab-pulse"></div>
+                <h2 class="text-4xl text-cyan-400 mb-8 lab-glow-cyan">What We'll Cover</h2>
+                <ul class="space-y-4 list-none">
+                    <li class="fragment relative pl-8 py-3 bg-gray-700/30 rounded-lg border-l-4 border-cyan-400 transition-all duration-300 hover:bg-gray-700/50 hover:translate-x-2">
+                        <div class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 bg-cyan-400 lab-hexagon lab-pulse"></div>
+                        Understanding Integration Testing
+                    </li>
+                    <li class="fragment relative pl-8 py-3 bg-gray-700/30 rounded-lg border-l-4 border-cyan-400 transition-all duration-300 hover:bg-gray-700/50 hover:translate-x-2">
+                        <div class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 bg-cyan-400 lab-hexagon lab-pulse"></div>
+                        Best Practices & Strategies
+                    </li>
+                    <li class="fragment relative pl-8 py-3 bg-gray-700/30 rounded-lg border-l-4 border-cyan-400 transition-all duration-300 hover:bg-gray-700/50 hover:translate-x-2">
+                        <div class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 bg-cyan-400 lab-hexagon lab-pulse"></div>
+                        Tools & Frameworks
+                    </li>
+                    <li class="fragment relative pl-8 py-3 bg-gray-700/30 rounded-lg border-l-4 border-cyan-400 transition-all duration-300 hover:bg-gray-700/50 hover:translate-x-2">
+                        <div class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 bg-cyan-400 lab-hexagon lab-pulse"></div>
+                        Real-world Examples
+                    </li>
+                    <li class="fragment relative pl-8 py-3 bg-gray-700/30 rounded-lg border-l-4 border-cyan-400 transition-all duration-300 hover:bg-gray-700/50 hover:translate-x-2">
+                        <div class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 bg-cyan-400 lab-hexagon lab-pulse"></div>
+                        Common Pitfalls to Avoid
+                    </li>
                 </ul>
             </section>
 
@@ -345,10 +378,11 @@
             </section>
 
             <!-- Thank you slide -->
-            <section data-background-gradient="linear-gradient(to bottom, #859398, #283048)" class="lab-title-slide">
-                <div class="lab-highlight-box">
-                    <h1>Thank You!</h1>
-                    <p>Questions & Discussion</p>
+            <section data-background-gradient="linear-gradient(to bottom, #859398, #283048)" class="relative">
+                <div class="bg-blue-500/10 border-2 border-blue-500 rounded-xl p-8 m-4 relative backdrop-blur-sm lab-led-border">
+                    <div class="absolute top-2 right-4 w-4 h-4 bg-cyan-400 lab-hexagon lab-pulse"></div>
+                    <h1 class="text-6xl font-black mb-6 lab-glow-cyan">Thank You!</h1>
+                    <p class="text-2xl text-gray-300">Questions & Discussion</p>
                 </div>
             </section>
         </div>
