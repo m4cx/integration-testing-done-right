@@ -39,6 +39,11 @@ jobs:
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
         
+        # Save built files to temp location before switching branches
+        TEMP_DIR=$(mktemp -d)
+        cp -r dist/* "$TEMP_DIR/"
+        echo "Built files saved to: $TEMP_DIR"
+        
         # Check if gh-pages branch exists
         git fetch origin gh-pages || echo "gh-pages branch doesn't exist yet"
         
@@ -53,7 +58,7 @@ jobs:
         # Copy built files to root (excluding PR directories)
         find . -maxdepth 1 -name "pr-*" -type d > .preserve_dirs 2>/dev/null || touch .preserve_dirs
         find . -maxdepth 1 ! -name "." ! -name ".git" ! -name "pr-*" -delete 2>/dev/null || true
-        cp -r ${{ github.workspace }}/dist/* .
+        cp -r "$TEMP_DIR"/* .
         
         # The main presentation is now at the root - no need for redirect
         # Built files from dist/ already include the main index.html
@@ -75,6 +80,12 @@ jobs:
         
         PR_NUMBER=${{ github.event.number }}
         echo "Deploying PR #$PR_NUMBER preview"
+        
+        # Save built files to temp location before switching branches
+        TEMP_DIR=$(mktemp -d)
+        cp -r dist/* "$TEMP_DIR/"
+        echo "Built files saved to: $TEMP_DIR"
+        ls -la "$TEMP_DIR"
         
         # Fetch gh-pages branch
         git fetch origin gh-pages || echo "gh-pages branch doesn't exist yet"
@@ -116,9 +127,11 @@ jobs:
         EOF
         fi
         
-        # Create PR directory and copy built files
+        # Create PR directory and copy built files from temp location
         mkdir -p pr-$PR_NUMBER
-        cp -r ${{ github.workspace }}/dist/* pr-$PR_NUMBER/
+        cp -r "$TEMP_DIR"/* pr-$PR_NUMBER/
+        echo "Files copied to pr-$PR_NUMBER:"
+        ls -la pr-$PR_NUMBER/
         
         # Add and commit changes
         git add .
