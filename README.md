@@ -6,6 +6,18 @@ A presentation about effective integration testing practices built with reveal.j
 
 The presentation is automatically deployed to GitHub Pages: [View Live](https://m4cx.github.io/integration-testing-done-right/)
 
+## Project Structure
+
+```
+├── src/presentation/           # Presentation source files
+│   ├── index.html             # Main presentation file
+│   └── css/                   # Custom styles and themes
+├── examples/                  # Integration testing examples (for future development)
+├── build.js                   # Build script for deployment
+├── dist/                      # Built presentation (generated)
+└── package.json              # Project configuration
+```
+
 ## Setup
 
 1. Install dependencies:
@@ -68,7 +80,7 @@ The presentation is automatically deployed to GitHub Pages when changes are push
 
 ## Customization
 
-The presentation uses a custom theme located in `css/custom-theme.css`. You can modify colors, fonts, and styling by editing this file.
+The presentation uses a custom theme located in `src/presentation/css/custom-theme.css`. You can modify colors, fonts, and styling by editing this file.
 
 ## Built with
 
