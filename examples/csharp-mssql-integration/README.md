@@ -230,9 +230,4 @@ This example can be extended with:
 
 ---
 
-## Related Examples
-
-- [Example 2: Node.js with PostgreSQL](../nodejs-postgresql-integration/)
-- [Example 3: Python with MongoDB](../python-mongodb-integration/)
-
 For more integration testing patterns and best practices, see the [main presentation](../../README.md).
