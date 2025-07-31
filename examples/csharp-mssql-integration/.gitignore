@@ -1,0 +1,43 @@
+# Build results
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Visual Studio
+.vs/
+
+# Rider
+.idea/
+
+# Test Coverage
+coverage/
+*.coverage
+*.coveragexml
+
+# NuGet Packages
+*.nupkg
+*.snupkg
+packages/
+
+# Entity Framework Migrations
+*.mdf
+*.ldf
+*.ndf
+
+# SQL Server Database files
+*.sdf
+*.dbmdl
+*.jfm
+
+# Temporary files
+*.tmp
+*.temp
+*~
