@@ -46,6 +46,7 @@ ensureDir(distDir);
 // Copy main files
 copyFile('./src/presentation/index.html', './dist/index.html');
 copyDir('./src/presentation/css', './dist/css');
+copyDir('./src/presentation/diagrams', './dist/diagrams');
 
 // Copy reveal.js files
 const revealSrc = './node_modules/reveal.js';
