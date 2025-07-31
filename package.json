@@ -1,0 +1,23 @@
+{
+  "name": "integration-testing-done-right",
+  "version": "1.0.0",
+  "description": "Integration Testing - Doing it the right way presentation",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve -s .",
+    "dev": "npx serve -s . -p 3000"
+  },
+  "keywords": [
+    "integration-testing",
+    "presentation",
+    "reveal.js"
+  ],
+  "author": "m4cx",
+  "license": "MIT",
+  "dependencies": {
+    "reveal.js": "^5.2.1"
+  },
+  "devDependencies": {
+    "serve": "^14.2.4"
+  }
+}
