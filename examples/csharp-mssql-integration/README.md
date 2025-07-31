@@ -86,7 +86,7 @@ The integration tests use **TestContainers.NET** to:
 ## Prerequisites
 
 - [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
-- [Docker](https://docs.docker.com/get-docker/) (for TestContainers)
+- [Docker](https://docs.docker.com/get-docker/) or [Podman](https://podman.io/getting-started/installation) (for TestContainers)
 
 ## Running the Example
 
@@ -202,7 +202,7 @@ The GitHub Actions workflow (`.github/workflows/ci.yml`) automatically:
 
 ✅ **No External Dependencies**: Everything needed is defined in code and containers
 
-✅ **Cross-Platform**: Runs on any system with Docker support
+✅ **Cross-Platform**: Runs on any system with Docker or Podman support
 
 ✅ **Comprehensive Coverage**: Tests the full stack from HTTP to database
 
