@@ -2,10 +2,10 @@
   "name": "integration-testing-done-right",
   "version": "1.0.0",
   "description": "Integration Testing - Doing it the right way presentation",
-  "main": "index.html",
+  "main": "src/presentation/index.html",
   "scripts": {
-    "start": "npx serve -s .",
-    "dev": "npx serve -s . -p 3000",
+    "start": "npx serve -s src/presentation",
+    "dev": "npx serve -s src/presentation -p 3000",
     "build": "node build.js",
     "build:serve": "npm run build && npx serve -s dist"
   },
