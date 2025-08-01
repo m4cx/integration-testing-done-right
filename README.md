@@ -55,11 +55,35 @@ The built files will be in the `dist/` directory, ready for deployment to any st
 
 ## Deployment
 
-The presentation is automatically deployed to GitHub Pages when changes are pushed to the main branch. The GitHub Actions workflow:
+The presentation is automatically deployed to GitHub Pages with two deployment modes:
 
+### Prerequisites for PR Previews
+
+For PR preview deployments to work, you need to set up a Personal Access Token (PAT):
+
+1. Go to GitHub Settings → Developer settings → Personal access tokens → Tokens (classic)
+2. Generate a new token with the following permissions:
+   - `repo` (Full control of private repositories)
+   - `workflow` (Update GitHub Action workflows)
+3. In your repository, go to Settings → Secrets and variables → Actions
+4. Add a new repository secret named `GH_PAT` with your token value
+
+This token allows the GitHub Actions workflow to push to the `gh-pages` branch for PR previews.
+
+### Production Deployment (Main Branch)
+When changes are pushed to the main branch, the GitHub Actions workflow:
 1. Installs dependencies
 2. Builds the presentation using `npm run build`
-3. Deploys the built files to GitHub Pages
+3. Deploys the built files to the root of GitHub Pages
+
+### PR Preview Deployments
+When a pull request is opened or updated, the workflow:
+1. Builds the PR version of the presentation
+2. Deploys it to a subdirectory: `https://m4cx.github.io/integration-testing-done-right/pr-{PR_NUMBER}/`
+3. Adds a comment to the PR with the preview URL
+4. Automatically cleans up the preview when the PR is closed
+
+This allows reviewers to test changes without needing to check out the PR locally.
 
 ## Features
 
