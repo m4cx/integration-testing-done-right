@@ -1,5 +1,12 @@
 name: Deploy to GitHub Pages
 
+# Grant GITHUB_TOKEN the permissions required to make a Pages deployment
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+  pull-requests: write
+  
 on:
   push:
     branches: [ main ]
@@ -96,12 +103,7 @@ jobs:
             });
           }
 
-# Grant GITHUB_TOKEN the permissions required to make a Pages deployment
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-  pull-requests: write
+
 
 # Allow concurrent PR deployments but only one main deployment at a time
 concurrency:
